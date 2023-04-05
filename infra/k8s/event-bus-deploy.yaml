@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-bus-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-bus
+  template:
+    metadata:
+      labels:
+        app: event-bus
+    spec:
+      containers:
+      - name: event-bus
+        image: absternator/event-bus
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: event-bus-service
+spec:
+# clusterIp is default so dont have to put
+  type: ClusterIP
+  selector:
+    app: event-bus
+  ports: 
+    - name: event-bus
+      protocol: TCP
+      port: 4005
+      targetPort: 4005
+
+
