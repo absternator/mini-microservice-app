@@ -40,7 +40,7 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4002, async () => {
-  console.log("listening on 4002!");
+  console.log("listening on 4002!!!");
 
   try {
     const res = await axios.get("http://event-bus-service:4005/events");
